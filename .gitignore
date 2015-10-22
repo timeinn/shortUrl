@@ -8,3 +8,6 @@ Package/
 
 # Phinx Database config file
 phinx.yml
+
+# Composer lock file
+composer.lock
