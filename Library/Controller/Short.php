@@ -1,12 +1,14 @@
 <?php
 /**
  * Created by IntelliJ IDEA.
- * Athor: Sendya <18x@loacg.com>
+ * Author: Sendya <18x@loacg.com>
  * Time: 2015/10/22 14:35
  */
 
 namespace Controller;
 
+use \Core\Error;
+use \Core\Request;
 use \Model\Short as ShortUrl;
 
 class Short
@@ -15,15 +17,38 @@ class Short
     {
         $result = array();
         $result['error'] = 1;
-        if(!isset($_POST['url']) || $_POST['url'] != null) {
-            $result['message'] = 'ÇëÇóÎª¿Õ';
+        if(!isset($_REQUEST['url']) || $_REQUEST['url'] == null) {
+            $result['message'] = 'åœ°å€ä¸ºç©º';
         } else {
             $result['error'] = 0;
-            $shortUrl = ShortUrl::CompressURL( htmlspecialchars($_POST['url']) );
-            $result['shortUrl'] = $shortUrl;
+            $bean = new ShortUrl();
+            $url = htmlspecialchars($_REQUEST['url']);
+            $bean->url = $url;
+            $id = $bean->CompressURL();
+            if($id == 0)
+            {
+                $result['message'] = 'è¯¥åœ°å€å·²å­˜åœ¨';
+                $bean = ShortUrl::CheckUrl($url);
+            }
+            $result['alias'] = $bean->alias;
+            $result['url'] = $bean->url;
         }
         echo json_encode($result);
         exit();
+    }
+
+    public function Redirect()
+    {
+        $requestPath = Request::getRequestPath();
+        $requestPath = ltrim($requestPath, '/');
+
+        $bean = ShortUrl::GetUrlByAlias($requestPath);
+        if(!$bean)
+        {
+            throw new Error('The request URL is not exists', 404);
+        } else {
+            header('Location: '.$bean->url);
+        }
     }
 
 }

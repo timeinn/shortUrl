@@ -1,13 +1,12 @@
 <?php
 /**
- * Shadowsocks Panel
  * Author: kookxiang <r18@ikk.me>
  */
 namespace Core;
 
 class DefaultRouter
 {
-    private $foundController = false;
+    protected $foundController = false;
 
     public function handleRequest()
     {
@@ -25,7 +24,7 @@ class DefaultRouter
         }
     }
 
-    private function findController($requestPath, $subDir = '')
+    protected function findController($requestPath, $subDir = '')
     {
         list($controller, $method) = explode('/', $requestPath, 2);
 

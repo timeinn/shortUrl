@@ -49,6 +49,9 @@ define('DEBUG_ENABLE', true);
  */
 define('TEMPLATE_UPDATE', true);
 
+
+define('SHORT_LENGTH', 3);
+
 /**
  * Base URL:
  * To manually config this, uncomment the following line and change the URL
