@@ -7,6 +7,8 @@
     <meta name="ViewPort" content="initial-scale=1, minimum-scale=1, width=device-width"/>
     <meta name="HandheldFriendly" content="true" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="keywords" content="Short,URL,短网址,缩短网址,Sendya" />
+    <meta name="description" content="淹死短网址服务(0x1e.com)是互联网上最稳定、最安全、最快速的短网址服务，帮您把冗长的URL地址缩短成8个字符以内的短网址">
     <style type="text/css">
         ::selection { background: rgba(78, 176, 248, 0.3); }
         html, body { width: 100%; height: 100%; cursor: default; }
@@ -23,6 +25,12 @@
         pre { background: #3498DB; color: #ffffff; padding: 15px 20px; margin: 25px -15px -15px; line-height: 1.4em; font-size: 14px; text-align: left; word-break: break-all; white-space: pre-wrap; }
         .main, pre { user-select: text; -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; cursor: text; }
         pre::selection { background: rgba(255, 255, 255, 0.99); color: #3498DB; }
+        #shortUrl a{color: #ffffff;text-decoration:none;}
+        #shortUrl a:hover{color: #e05d6f;text-decoration:underline;}
+        input{transition:all 0.30s ease-in-out;-webkit-transition: all 0.30s ease-in-out;-moz-transition: all 0.30s ease-in-out;border:#35a5e5 1px solid;border-radius:3px;outline:none;}
+        input:focus{box-shadow:0 0 5px rgba(81, 203, 238, 1);-webkit-box-shadow:0 0 5px rgba(81, 203, 238, 1);-moz-box-shadow:0 0 5px rgba(81, 203, 238, 1);}
+        .button{text-decoration:none;background:rgba(81, 203, 238, 1);color:white;padding: 6px 25px 6px 25px;font:12px '微软雅黑';border-radius:3px;-webkit-transition:all linear 0.30s;-moz-transition:all linear 0.30s;transition:all linear 0.30s;}
+        .button:hover{background:rgba(39, 154, 187, 1);}
     </style>
 </head>
 <body>
@@ -31,19 +39,20 @@
     <h2>缩短网址</h2>
     <div class="main selectable">
         <form id="form" action="" method="get" onsubmit="return false;">
-        原网址：<input name="url" id="url" type="text" placeholder="请填写原网址" required/> &nbsp; <button id="submit">缩短</button>
+        原网址：<input name="url" id="url" type="text" style="height:25px" placeholder="请填写原网址" required/> &nbsp; <a href="javascript:;" class="button" id="submit">缩短</a>
         </form>
     </div>
     <p></p>
-    <pre id="shortUrl" style="display:none;">短址为：</pre>
+    <pre id="shortUrl" style="display:block;">Example: <a href="{BASE_URL}0NTcwM">{BASE_URL}0NTcwM</a></pre>
 </div>
-<p class="foot">Powered by KK Framework</p>\
+<p class="foot">Powered by KK Framework</p>
+<script src="//lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
 <script>
-    (function($){
+    $(function(){
         $("#submit").click(function(){
             var urlVal = $("#url").val();
             if(urlVal =='' || urlVal == null) {
-                alert("为空不可提交");
+                $("#shortUrl").show().html("<b>不能转换空链接.</b>");
                 return;
             }
             $.ajax({
@@ -52,7 +61,8 @@
                 dataType: "json",
                 success: function(result){
                     if(result.error == 0){
-                        $("#shortUrl").show().html("短址为：" + result.shortUrl);
+                        var shortURL = "{BASE_URL}" + result.alias;
+                        $("#shortUrl").show().html(result.message + '<br/>短址为：<a href="'+ shortURL + '" target="_blank">'+shortURL+'</a>');
                     } else {
                         alert("转换失败,错误代码：" + result.message);
                     }

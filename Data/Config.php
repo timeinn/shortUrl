@@ -62,4 +62,4 @@ Core\Request::autoDetectBaseURL();
 /**
  * Database Connection:
  */
-Core\Database::register('mysql:dbname=shorturl;host=localhost;charset=UTF8', 'root', 'root');
+Core\Database::register('mysql:dbname=shorturl;host=localhost;charset=UTF8', 'root', '513030@loacg.com');
