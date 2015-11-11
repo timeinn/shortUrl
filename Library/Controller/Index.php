@@ -18,7 +18,7 @@ class Index
 
         if(ENCRYPT_KEY == '' || COOKIE_KEY == '')
         {
-            throw new Error("程序没有配置HashKey,请访问 <b>/Key/CreateKey</b> 生成新的Key", 505);
+            throw new Error("程序没有配置,请访问 <b>/Install</b> 生成新的Key", 505);
             exit();
         }
 

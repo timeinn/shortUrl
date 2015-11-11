@@ -1,8 +1,9 @@
 <?php
 /**
- * Created by IntelliJ IDEA.
+ * ShortUrl
  * Athor: Sendya <18x@loacg.com>
  * Time: 2015/10/22 2:15
+ * Modifyed: 2015/11/11 09:51
  */
 
 namespace Helper;
@@ -21,6 +22,48 @@ class Utility
         return $key;
     }
 
+    public static function GetConfig($cname) {
+        $file = DATA_PATH . "Config.php";
+        if(!file_exists($file)) return false;
+        
+        $config = preg_match("/define\('" .preg_quote($cname). "', '(.*)'\);/", $str, $res);
+        return $res[1];
+    }
+    
+    public static function SetConfig($cname, $value) {
+        $file = DATA_PATH . "Config.php";
+        if(!file_exists($file)) return false;
+        $str = file_get_contents($file);
+        
+        $str2 = preg_replace("/define\('" .preg_quote($cname). "', '(.*)'\);/", "define('" .preg_quote($cname). "', '".$value."');", $str);
+        
+        file_put_contents($file, $str2);
+    }
+
+    public static function GetDb() {
+
+    }
+
+    public static function SetDb($dbName, $host, $user, $password) {
+        $file = DATA_PATH . "Config.php";
+        if(!file_exists($file) && !Utility::GetConfigFile()) return false;
+        $str = file_get_contents($file);
+        $str2 = preg_replace("/Database::register\((.*)\);/", "Database::register('mysql:dbname=".preg_quote($dbName).";host=".preg_quote($host).";charset=UTF8', '".preg_quote($user)."', '".preg_quote($password)."');", $str);
+
+        file_put_contents($file, $str2);
+    }
+
+    public static function GetConfigFile() {
+        $file = DATA_PATH . "Config.php";
+        if(!file_exists($file)) {
+            if(copy(DATA_PATH . "Config.sample.php", DATA_PATH . "Config.php")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
     public static function UrlToShort($alias)
     {
 

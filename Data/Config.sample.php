@@ -16,14 +16,14 @@ define('SITE_NAME', 'Short URL');
  * This key is used to encrypt password and other information.
  * Don't touch it after application install finished.
  */
-define('ENCRYPT_KEY', '&TXVwPQ-].xRPf~');
+define('ENCRYPT_KEY', '');
 
 /**
  * Cookie Key:
  * Password which used to encrypt cookie info.
  * If this key is leaked, generate it again and all the users will forced logout.
  */
-define('COOKIE_KEY', 'F?R;/0#LUO`vch4');
+define('COOKIE_KEY', '');
 
 /**
  * Rewrite setting:
@@ -62,4 +62,4 @@ Core\Request::autoDetectBaseURL();
 /**
  * Database Connection:
  */
-Core\Database::register('mysql:dbname=shorturl;host=localhost;charset=UTF8', 'root', '513030@loacg.com');
+Core\Database::register('mysql:dbname=shorturl;host=localhost;charset=UTF8', 'root', 'root');
