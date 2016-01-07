@@ -19,6 +19,8 @@ class Short
         $result['error'] = 1;
         if(!isset($_REQUEST['url']) || $_REQUEST['url'] == null) {
             $result['message'] = '地址为空';
+        } else if(!stristr($_REQUEST['url'], "0x1e.com")) {
+        		$result['message'] = '你想干吗? Tips:不能压缩本站地址或已经被压缩的地址';
         } else {
             $result['error'] = 0;
             $bean = new ShortUrl();
