@@ -1,14 +1,5 @@
-Short URL for PHP
-=====================
-使用灵活的 KK Framework 打造的一款PHP网址缩短程序  
-使用MySQL记录转换记录，采用MD5方式防止URL重复  
+## KK-Framework
 
-后台可以由管理员手动添加需要的短址，1个字符以上  
-可以查看全部转换的列表，修改已生成的短址等  
+KK-Framework is a fast, easy-to-use php framework.
 
-####Codeing 60%..
-
-```
-	修正已经被压缩地址可以重复压缩问题.
-
-```
+View all documents on [docs.ikk.me](https://docs.ikk.me/kk-framework/)

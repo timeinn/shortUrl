@@ -1,29 +1,51 @@
 <?php
 /**
- * Created by IntelliJ IDEA.
- * Author: Sendya <18x@loacg.com>
- * Date: 2015/10/22 2:04
+ * KK-Framework
+ * Author: kookxiang <r18@ikk.me>
  */
 
 namespace Controller;
 
 use Core\Template;
-use Core\Error;
-
+use Model\Url;
 
 class Index
 {
-    public function Index()
+    /**
+     * @DynamicRoute /{string}
+     * @param $shortUrl
+     * @throws Error
+     */
+    function dynamicRouteTest($shortUrl)
     {
-
-        if(ENCRYPT_KEY == '' || COOKIE_KEY == '')
-        {
-            throw new Error("程序没有配置,请访问 <b>/Install</b> 生成新的Key", 505);
-            exit();
+        $bean = Url::findUrl($shortUrl);
+        if (!$bean) {
+            throw new Error('The request URL is not exists', 404);
+        } else {
+            header('Location: ' . $bean->url);
         }
-
-        include Template::load("Index");
     }
 
+    /**
+     * @Home
+     * @Route /Index
+     */
+    function index()
+    {
 
+        Template::setView('index');
+    }
+
+    /**
+     * This method can be call by /index/test.json
+     * @Route /Test
+     * @JSON
+     */
+    function test()
+    {
+        return array(
+            'hello' => 1,
+            'world' => 2
+        );
+    }
 }

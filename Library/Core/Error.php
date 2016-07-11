@@ -1,9 +1,9 @@
 <?php
 /**
- * KK Forum
- * A simple bulletin board system
+ * KK-Framework
  * Author: kookxiang <r18@ikk.me>
  */
+
 namespace Core;
 
 class Error extends \Exception
@@ -14,10 +14,10 @@ class Error extends \Exception
      * Create a Exception
      * @param string $message Error message
      * @param int $code Error code
-     * @param \Exception $previous Previous exception
+     * @param \Throwable $previous Previous exception
      * @param array $trace Backtrace information
      */
-    function __construct($message = '', $code = 0, \Exception $previous = null, $trace = array())
+    public function __construct($message = 'Internal Server Error', $code = 0, $previous = null, $trace = array())
     {
         parent::__construct($message, $code, $previous);
         $this->trace = $trace;
@@ -31,8 +31,8 @@ class Error extends \Exception
      */
     public static function registerHandler()
     {
-        set_exception_handler(array('\\Core\\Error', 'handleUncaughtException'));
-        set_error_handler(array('\\Core\\Error', 'handlePHPError'), E_ALL);
+        set_exception_handler(array(__CLASS__, 'handleUncaughtException'));
+        set_error_handler(array(__CLASS__, 'handlePHPError'), E_ALL);
     }
 
     public static function handlePHPError($errNo, $errStr, $errFile, $errLine)
@@ -45,22 +45,31 @@ class Error extends \Exception
         }
         //if($errNo == E_DEPRECATED) return;
         $trace = debug_backtrace();
-        array_unshift($trace, array('file' => $errFile, 'line' => $errLine,));
+        array_unshift($trace, array('file' => $errFile, 'line' => $errLine));
         $exception = new self($errStr, $errNo, null, $trace);
         self::handleUncaughtException($exception);
     }
 
-    public static function handleUncaughtException(\Exception $instance)
+
+    /**
+     * @param \Throwable $instance Exception or Error instance
+     * @throws Error
+     */
+    public static function handleUncaughtException($instance)
     {
         @ob_end_clean();
-        if (Database::inTransaction()) {
-            Database::rollBack();
+        if (Database::getInstance() && Database::getInstance()->inTransaction()) {
+            Database::getInstance()->rollBack();
         }
         if (!($instance instanceof Error)) {
             $instance = new self($instance->getMessage(), intval($instance->getCode()), $instance,
                 $instance->getTrace());
         }
-        include Template::load('Error');
+        Template::setView('Misc/Error');
+        Template::putContext('instance', $instance);
+        Filter::preRender();
+        Template::render();
+        Filter::afterRender();
         exit();
     }
 
@@ -78,6 +87,12 @@ class Error extends \Exception
                 continue;
             }
             if ($error['function'] == 'getBackTrace') {
+                continue;
+            }
+            if ($error['function'] == 'handlePHPError') {
+                continue;
+            }
+            if ($error['function'] == 'handleUncaughtException') {
                 continue;
             }
             $error['line'] = $error['line'] ? ":{$error['line']}" : '';

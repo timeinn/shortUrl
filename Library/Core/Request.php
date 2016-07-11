@@ -1,9 +1,9 @@
 <?php
 /**
- * KK Forum
- * A simple bulletin board system
+ * KK-Framework
  * Author: kookxiang <r18@ikk.me>
  */
+
 namespace Core;
 
 class Request

@@ -1,9 +1,9 @@
 <?php
 /**
- * KK Forum
- * A simple bulletin board system
+ * KK-Framework
  * Author: kookxiang <r18@ikk.me>
  */
+
 namespace Core;
 
 class Response
@@ -25,7 +25,9 @@ class Response
      */
     public static function redirect($target)
     {
-        header('Location: ' . self::generateURL($target));
+        $target = self::generateURL($target);
+        Filter::redirect($target);
+        header('Location: ' . $target);
         exit();
     }
 
@@ -40,9 +42,12 @@ class Response
             return $target;
         }
         if (file_exists(ROOT_PATH . $target)) {
-            return $target;
+            return BASE_URL . $target;
         }
-        return 'index.php/' . $target;
+        if (defined('USE_REWRITE') && USE_REWRITE) {
+            return BASE_URL . $target;
+        }
+        return BASE_URL . 'index.php/' . $target;
     }
 
     /**

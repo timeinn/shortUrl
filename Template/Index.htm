@@ -39,7 +39,7 @@
     <h2>缩短网址</h2>
     <div class="main selectable">
         <form id="form" action="" method="get" onsubmit="return false;">
-        原网址：<input name="url" id="url" type="text" style="height:25px" placeholder="请填写原网址" required/> &nbsp; <a href="javascript:;" class="button" id="submit">缩短</a>
+            原网址：<input name="url" id="url" type="text" style="height:25px" placeholder="请填写原网址" required/> &nbsp; <a href="javascript:;" class="button" id="submit">缩短</a>
         </form>
     </div>
     <p></p>
@@ -56,7 +56,7 @@
                 return;
             }
             $.ajax({
-                url: "/Short",
+                url: "/short/alias.json",
                 data: {url: urlVal},
                 dataType: "json",
                 success: function(result){

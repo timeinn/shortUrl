@@ -1,56 +1,65 @@
 <?php
 /**
- * Created by IntelliJ IDEA.
+ * Short URL
  * Author: Sendya <18x@loacg.com>
  * Time: 2015/10/22 14:35
  */
 
 namespace Controller;
 
-use \Core\Error;
-use \Core\Request;
-use \Model\Short as ShortUrl;
+use Helper\Utility;
+use Model\Url;
 
 class Short
 {
-    public function Index()
+
+    /**
+     * @JSON
+     * @Route /short/alias.json
+     */
+    public function alias()
     {
         $result = array();
         $result['error'] = 1;
-        if(!isset($_REQUEST['url']) || $_REQUEST['url'] == null) {
+        if (!isset($_REQUEST['url']) || $_REQUEST['url'] == null) {
             $result['message'] = '地址为空';
-        } else if(!stristr($_REQUEST['url'], "0x1e.com")) {
-        		$result['message'] = '你想干吗? Tips:不能压缩本站地址或已经被压缩的地址';
-        } else {
-            $result['error'] = 0;
-            $bean = new ShortUrl();
-            $url = htmlspecialchars($_REQUEST['url']);
-            $bean->url = $url;
-            $id = $bean->CompressURL();
-            if($id == 0)
-            {
-                $result['message'] = '该地址已存在';
-                $bean = ShortUrl::CheckUrl($url);
-            }
-            $result['alias'] = $bean->alias;
-            $result['url'] = $bean->url;
+            return $result;
         }
-        echo json_encode($result);
-        exit();
+
+        if (stristr($_REQUEST['url'], BASE_URL) !== false) {
+            $result['message'] = '你想干吗? Tips:不能压缩本站地址或已经被压缩的地址';
+            return $result;
+        }
+
+        $url = htmlspecialchars($_REQUEST['url']);
+        if (Url::findUrl($url) != null) {
+            $result['message'] = '该地址已存在';
+            return $result;
+        }
+
+        $bean = new Url();
+        $bean->url = $url;
+        $bean->alias = Utility::url2Short2($url);
+        $bean->status = 1;
+        $bean->add_time = time();
+        $bean->click_num = 1;
+        $bean->save();
+        
+        $result['error'] = 0;
+        $result['alias'] = $bean->alias;
+        $result['url'] = $bean->url;
+        return $result;
     }
 
-    public function Redirect()
+    public function redirect()
     {
         $requestPath = Request::getRequestPath();
         $requestPath = ltrim($requestPath, '/');
-
-        $bean = ShortUrl::GetUrlByAlias($requestPath);
-        if(!$bean)
-        {
+        $bean = Url::findUrl($requestPath);
+        if (!$bean) {
             throw new Error('The request URL is not exists', 404);
         } else {
-            header('Location: '.$bean->url);
+            header('Location: ' . $bean->url);
         }
     }
-
 }
