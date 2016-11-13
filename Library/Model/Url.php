@@ -32,7 +32,7 @@ class Url extends Model
 
     public static function findUrl($url)
     {
-        $stm = Database::sql('SELECT `id`, `alias`, `url`, `status`, `add_time`, `click_num` FROM `url_list` WHERE `url`=?');
+        $stm = Database::sql('SELECT `id`, `alias`, `url`, `status`, `add_time`, `click_num` FROM `url_list` WHERE `alias`=?');
         $stm->bindValue(1, $url, Database::PARAM_STR);
         $stm->execute();
         return $stm->fetchObject(__CLASS__);
