@@ -62,7 +62,7 @@
                 success: function(result){
                     if(result.code == 200 && result.data.error == 0){
                         var shortURL = "{BASE_URL}" + result.data.alias;
-                        $("#shortUrl").show().html(result.data.message + '<br/>短址为：<a href="'+ shortURL + '" target="_blank">'+shortURL+'</a>');
+                        $("#shortUrl").show().html('短址为：<a href="'+ shortURL + '" target="_blank">'+shortURL+'</a>');
                     } else {
                         if (result.data.alias != undefined) {
                             var shortURL = "{BASE_URL}" + result.data.alias;

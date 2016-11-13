@@ -39,6 +39,54 @@ function command_exists($command)
     }
     return false;
 }
+function copyDir($strSrcDir, $strDstDir)
+{
+    $dir = opendir($strSrcDir);
+    if (!$dir) {
+        return false;
+    }
+    if (!is_dir($strDstDir)) {
+        if (!mkdir($strDstDir)) {
+            return false;
+        }
+    }
+    while (false !== ($file = readdir($dir))) {
+        if (($file != '.') && ($file != '..')) {
+            if (is_dir($strSrcDir . '/' . $file)) {
+                if (!copydir($strSrcDir . '/' . $file, $strDstDir . '/' . $file)) {
+                    return false;
+                }
+            } else {
+                if (!copy($strSrcDir . '/' . $file, $strDstDir . '/' . $file)) {
+                    return false;
+                }
+            }
+        }
+    }
+    closedir($dir);
+    return true;
+}
+function delDir($dir) {
+    //先删除目录下的文件：
+    $dh=@opendir($dir);
+    while ($file=@readdir($dh)) {
+        if($file!="." && $file!="..") {
+            $fullpath=$dir."/".$file;
+            if(!is_dir($fullpath)) {
+                @unlink($fullpath);
+            } else {
+                deldir($fullpath);
+            }
+        }
+    }
+    @closedir($dh);
+    //删除当前文件夹：
+    if(@rmdir($dir)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 function colorize($text, $status) {
     $out = "";
@@ -140,6 +188,11 @@ switch ($argv[1]) {
             exec($phinxCommand . ' rollback', $return_arr, $return_arr2);
             break;
         }
+        echo 'Now installing resources...' . PHP_EOL;
+        echo 'Deleting old resources...  ' . PHP_EOL;
+        echo delDir(ROOT_PATH . 'Public/Resource') ? 'Done.' . PHP_EOL : 'old resources not exist.' . PHP_EOL;
+        echo 'Copying resources...' . PHP_EOL;
+        copyDir(ROOT_PATH . 'Resource', ROOT_PATH . 'Public/Resource');
         echo colorize('All done~ Cheers!', 'NOTE') . PHP_EOL;
         break;
     default:
