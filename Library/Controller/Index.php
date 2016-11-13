@@ -6,6 +6,7 @@
 
 namespace Controller;
 
+use Core\Error;
 use Core\Template;
 use Model\Url;
 
@@ -34,18 +35,5 @@ class Index
     {
 
         Template::setView('Index');
-    }
-
-    /**
-     * This method can be call by /index/test.json
-     * @Route /Test
-     * @JSON
-     */
-    function test()
-    {
-        return array(
-            'hello' => 1,
-            'world' => 2
-        );
     }
 }
