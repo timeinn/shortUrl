@@ -60,8 +60,8 @@
                 data: {url: urlVal},
                 dataType: "json",
                 success: function(result){
-                    if(result.error == 0){
-                        var shortURL = "{BASE_URL}" + result.alias;
+                    if(result.code == 200 && result.data.error == 0){
+                        var shortURL = "{BASE_URL}" + result.data.alias;
                         $("#shortUrl").show().html(result.message + '<br/>短址为：<a href="'+ shortURL + '" target="_blank">'+shortURL+'</a>');
                     } else {
                         alert("转换失败,错误代码：" + result.message);
