@@ -35,6 +35,6 @@ class Url extends Model
         $stm = Database::sql('SELECT `id`, `alias`, `url`, `status`, `add_time`, `click_num` FROM `url_list` WHERE `url`=?');
         $stm->bindValue(1, $url, Database::PARAM_STR);
         $stm->execute();
-        return $stm->fetchObject(Database::FETCH_CLASS, __CLASS__);
+        return $stm->fetchObject(__CLASS__);
     }
 }

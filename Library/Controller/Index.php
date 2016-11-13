@@ -33,7 +33,7 @@ class Index
     function index()
     {
 
-        Template::setView('index');
+        Template::setView('Index');
     }
 
     /**

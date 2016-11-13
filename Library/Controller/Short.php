@@ -15,7 +15,7 @@ class Short
 
     /**
      * @JSON
-     * @Route /short/alias.json
+     * @Route /short/alias
      */
     public function alias()
     {
