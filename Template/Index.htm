@@ -64,8 +64,10 @@
                         var shortURL = "{BASE_URL}" + result.data.alias;
                         $("#shortUrl").show().html(result.message + '<br/>短址为：<a href="'+ shortURL + '" target="_blank">'+shortURL+'</a>');
                     } else {
-                        var shortURL = "{BASE_URL}" + result.data.alias;
-                        $("#shortUrl").show().html(result.message + '<br/>短址为：<a href="'+ shortURL + '" target="_blank">'+shortURL+'</a>');
+                        if (result.data.alias != undefined) {
+                            var shortURL = "{BASE_URL}" + result.data.alias;
+                            $("#shortUrl").show().html(result.message + '<br/>短址为：<a href="'+ shortURL + '" target="_blank">'+shortURL+'</a>');
+                        }
                         alert("转换失败,错误代码：" + result.data.message);
                     }
                 },

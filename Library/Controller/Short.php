@@ -35,7 +35,7 @@ class Short
         $tUrl = Url::findUrl($url);
         if ($tUrl != null) {
             $result['message'] = '该地址已存在';
-            $result['alias'] = $tUrl->url;
+            $result['alias'] = $tUrl->alias;
             return $result;
         }
 
