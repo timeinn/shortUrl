@@ -7,6 +7,7 @@
 
 namespace Controller;
 
+use Core\Error;
 use Helper\Utility;
 use Model\Url;
 
