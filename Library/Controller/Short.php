@@ -32,8 +32,10 @@ class Short
         }
 
         $url = htmlspecialchars($_REQUEST['url']);
-        if (Url::findUrl($url) != null) {
+        $tUrl = Url::findUrl($url);
+        if ($tUrl != null) {
             $result['message'] = '该地址已存在';
+            $result['alias'] = $tUrl->url;
             return $result;
         }
 
