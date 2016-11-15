@@ -55,7 +55,7 @@ input:focus {
     color: rgb(251, 188, 5);
 }
 .main .url {
-    width: 670px;
+    width: 100%;
     height: 36px;
     font-size: 14px;
     text-indent: 8px;
@@ -106,4 +106,11 @@ a {
 }
 a:hover {
     text-decoration: underline;
+}
+
+@media screen and (max-width:650px){
+    .main {
+        width: 400px;
+        margin-left: -200px;
+    }
 }
