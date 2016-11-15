@@ -41,7 +41,7 @@ define('HTTPS_SUPPORT', true);
  * Enable debug mode:
  * Disable debug mode will hide backtrace information, which is helpful for developer
  */
-define('DEBUG_ENABLE', true);
+define('DEBUG_ENABLE', false);
 
 /**
  * Base URL:
@@ -60,4 +60,4 @@ Core\I18N::setTranslationFile(LIBRARY_PATH . 'Language/en-US.yml');
 /**
  * Database Connection:
  */
-Core\Database::initialize('mysql:dbname=test;host=localhost;charset=UTF8', 'root', 'root');
+Core\Database::initialize('mysql:dbname=short;host=localhost;charset=UTF8', 'root', 'root');

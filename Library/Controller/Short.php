@@ -52,9 +52,9 @@ class Short
         $result['alias'] = $bean->alias;
         $result['url'] = $bean->url;
         return $result;
-    }
+        }
 
-    public function redirect()
+        public function redirect()
     {
         $requestPath = Request::getRequestPath();
         $requestPath = ltrim($requestPath, '/');
