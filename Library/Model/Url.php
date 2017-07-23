@@ -38,6 +38,14 @@ class Url extends Model
         return $stm->fetchObject(__CLASS__);
     }
 
+    public static function findUrlById($id)
+    {
+        $stm = Database::sql('SELECT `id`, `alias`, `url`, `status`, `add_time`, `click_num` FROM `url_list` WHERE `id`=?');
+        $stm->bindValue(1, $id, Database::PARAM_INT);
+        $stm->execute();
+        return $stm->fetchObject(__CLASS__);
+    }
+
     public static function queryUrl($url)
     {
         $stm = Database::sql('SELECT `id`, `alias`, `url`, `status`, `add_time`, `click_num` FROM `url_list` WHERE `url`=?');
