@@ -4,20 +4,82 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fbe0b6da3e694133b19f58743eafce98",
-    "content-hash": "d990fd9a0076d513584f80a0ac43a76d",
+    "content-hash": "59c1dbc2600a315eec0f380d0dff5cf7",
     "packages": [
+        {
+            "name": "hashids/hashids",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ivanakimov/hashids.php.git",
+                "reference": "28889ed83cdc91f4a55637daff0fb5c799eb324e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ivanakimov/hashids.php/zipball/28889ed83cdc91f4a55637daff0fb5c799eb324e",
+                "reference": "28889ed83cdc91f4a55637daff0fb5c799eb324e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "php": "^5.6.4 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.6"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hashids\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ivan Akimov",
+                    "email": "ivan@barreleye.com",
+                    "homepage": "https://twitter.com/IvanAkimov"
+                },
+                {
+                    "name": "Vincent Klaiber",
+                    "email": "hello@vinkla.com",
+                    "homepage": "https://vinkla.com"
+                }
+            ],
+            "description": "Generate short, unique, non-sequential ids (like YouTube and Bitly) from numbers",
+            "homepage": "http://hashids.org/php",
+            "keywords": [
+                "bitly",
+                "decode",
+                "encode",
+                "hash",
+                "hashid",
+                "hashids",
+                "ids",
+                "obfuscate",
+                "youtube"
+            ],
+            "time": "2017-01-01T13:33:33+00:00"
+        },
         {
             "name": "robmorgan/phinx",
             "version": "v0.5.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/robmorgan/phinx.git",
+                "url": "https://github.com/cakephp/phinx.git",
                 "reference": "4e7fee7792f4bf3dbf55ee29001850ba26c86a88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robmorgan/phinx/zipball/4e7fee7792f4bf3dbf55ee29001850ba26c86a88",
+                "url": "https://api.github.com/repos/cakephp/phinx/zipball/4e7fee7792f4bf3dbf55ee29001850ba26c86a88",
                 "reference": "4e7fee7792f4bf3dbf55ee29001850ba26c86a88",
                 "shasum": ""
             },
@@ -66,7 +128,7 @@
                 "migrations",
                 "phinx"
             ],
-            "time": "2016-03-07 14:09:22"
+            "time": "2016-03-07T14:09:22+00:00"
         },
         {
             "name": "symfony/config",
@@ -119,7 +181,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-04 07:55:57"
+            "time": "2016-03-04T07:55:57+00:00"
         },
         {
             "name": "symfony/console",
@@ -179,7 +241,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-16 17:00:50"
+            "time": "2016-03-16T17:00:50+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -228,7 +290,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-27 10:24:39"
+            "time": "2016-03-27T10:24:39+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -287,7 +349,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-01-20 09:13:37"
+            "time": "2016-01-20T09:13:37+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -336,7 +398,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-04 07:55:57"
+            "time": "2016-03-04T07:55:57+00:00"
         }
     ],
     "packages-dev": [],

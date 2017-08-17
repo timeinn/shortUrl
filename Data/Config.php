@@ -18,6 +18,21 @@ define('SITE_NAME', 'Short URL');
  */
 define('SHORT_LENGTH', 3);
 
+
+/**
+ * Short link min algorithm  ['hashids' | 'rand']
+ */
+define('SHORT_ALGORITHM', 'hashids');
+
+/**!
+ * Hashids uses salt;
+ *
+ *! Please remember it, and make that backup.
+ *
+ * It's important for your hash token.
+ */
+define('HASHIDS_SALT', 'Please generate salt and paste here, and Never Forget It!');
+
 /**
  * Rewrite setting:
  * remove "index.php" from url, needs to config apache/nginx manually
