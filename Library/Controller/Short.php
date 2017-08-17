@@ -9,6 +9,7 @@ namespace Controller;
 
 use Core\Error;
 use Helper\Utility;
+use Helper\Hashids;
 use Model\Url;
 
 class Short
@@ -47,14 +48,19 @@ class Short
         $bean->add_time = time();
         $bean->click_num = 1;
         $bean->save();
-        
+
+        if (SHORT_ALGORITHM === 'hashids') {
+            $bean->alias = Hashids::encode($bean->id);
+            $bean->save();
+        }
+
         $result['error'] = 0;
         $result['alias'] = $bean->alias;
         $result['url'] = $bean->url;
         return $result;
-        }
+    }
 
-        public function redirect()
+    public function redirect()
     {
         $requestPath = Request::getRequestPath();
         $requestPath = ltrim($requestPath, '/');

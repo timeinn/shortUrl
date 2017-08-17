@@ -38,6 +38,10 @@ class Utility
 
     public static function url2Short2($url)
     {
+        if (SHORT_ALGORITHM === 'hashids') {
+            return str_replace('.', '', uniqid('', true));
+        }
+
         $hash = base64_encode(md5($url . microtime()));
         $token = substr($hash, -9);
         $token = substr($token, 0, 6);
